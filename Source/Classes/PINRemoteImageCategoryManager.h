@@ -23,54 +23,65 @@
 @interface PINRemoteImageCategoryManager : NSObject
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
-               fromURL:(nullable NSURL *)url;
+               fromURL:(nullable NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options;
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
                fromURL:(nullable NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(nullable PINImage *)placeholderImage;
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
                fromURL:(nullable NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(nullable PINImage *)placeholderImage
             completion:(nullable PINRemoteImageManagerImageCompletion)completion;
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
                fromURL:(nullable NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
             completion:(nullable PINRemoteImageManagerImageCompletion)completion;
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
                fromURL:(nullable NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
           processorKey:(nullable NSString *)processorKey
              processor:(nullable PINRemoteImageManagerImageProcessor)processor;
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
                fromURL:(nullable NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(nullable PINImage *)placeholderImage
           processorKey:(nullable NSString *)processorKey
              processor:(nullable PINRemoteImageManagerImageProcessor)processor;
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
                fromURL:(nullable NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
           processorKey:(nullable NSString *)processorKey
              processor:(nullable PINRemoteImageManagerImageProcessor)processor
             completion:(nullable PINRemoteImageManagerImageCompletion)completion;
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
               fromURLs:(nullable NSArray <NSURL *> *)urls
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(nullable PINImage *)placeholderImage
           processorKey:(nullable NSString *)processorKey
              processor:(nullable PINRemoteImageManagerImageProcessor)processor
             completion:(nullable PINRemoteImageManagerImageCompletion)completion;
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
-              fromURLs:(nullable NSArray <NSURL *> *)urls;
+              fromURLs:(nullable NSArray <NSURL *> *)urls
+               options:(PINRemoteImageManagerDownloadOptions)options;
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
               fromURLs:(nullable NSArray <NSURL *> *)urls
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(nullable PINImage *)placeholderImage;
 
 + (void)setImageOnView:(nonnull id <PINRemoteImageCategory>)view
               fromURLs:(nullable NSArray <NSURL *> *)urls
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(nullable PINImage *)placeholderImage
             completion:(nullable PINRemoteImageManagerImageCompletion)completion;
 
@@ -98,7 +109,7 @@
  
  @param url NSURL to fetch from.
  */
-- (void)pin_setImageFromURL:(nullable NSURL *)url;
+- (void)pin_setImageFromURL:(nullable NSURL *)url options:(PINRemoteImageManagerDownloadOptions)options;
 
 /**
  Set the image from the given URL and set placeholder image while image at URL is being retrieved.
@@ -106,7 +117,7 @@
  @param url NSURL to fetch from.
  @param placeholderImage PINImage to set on the view while the image at URL is being retrieved.
  */
-- (void)pin_setImageFromURL:(nullable NSURL *)url placeholderImage:(nullable PINImage *)placeholderImage;
+- (void)pin_setImageFromURL:(nullable NSURL *)url options:(PINRemoteImageManagerDownloadOptions)options placeholderImage:(nullable PINImage *)placeholderImage;
 
 /**
  Set the image from the given URL and call completion when finished.
@@ -114,7 +125,7 @@
  @param url NSURL to fetch from.
  @param completion Called when url has been retrieved and set on view.
  */
-- (void)pin_setImageFromURL:(nullable NSURL *)url completion:(nullable PINRemoteImageManagerImageCompletion)completion;
+- (void)pin_setImageFromURL:(nullable NSURL *)url options:(PINRemoteImageManagerDownloadOptions)options completion:(nullable PINRemoteImageManagerImageCompletion)completion;
 
 /**
  Set the image from the given URL, set placeholder while image at url is being retrieved and call completion when finished.
@@ -123,7 +134,7 @@
  @param placeholderImage PINImage to set on the view while the image at URL is being retrieved.
  @param completion Called when url has been retrieved and set on view.
  */
-- (void)pin_setImageFromURL:(nullable NSURL *)url placeholderImage:(nullable PINImage *)placeholderImage completion:(nullable PINRemoteImageManagerImageCompletion)completion;
+- (void)pin_setImageFromURL:(nullable NSURL *)url options:(PINRemoteImageManagerDownloadOptions)options placeholderImage:(nullable PINImage *)placeholderImage completion:(nullable PINRemoteImageManagerImageCompletion)completion;
 
 /**
  Retrieve the image from the given URL, process it using the passed in processor block and set result on view.
@@ -132,7 +143,7 @@
  @param processorKey NSString key to uniquely identify processor. Used in caching.
  @param processor PINRemoteImageManagerImageProcessor processor block which should return the processed image.
  */
-- (void)pin_setImageFromURL:(nullable NSURL *)url processorKey:(nullable NSString *)processorKey processor:(nullable PINRemoteImageManagerImageProcessor)processor;
+- (void)pin_setImageFromURL:(nullable NSURL *)url options:(PINRemoteImageManagerDownloadOptions)options processorKey:(nullable NSString *)processorKey processor:(nullable PINRemoteImageManagerImageProcessor)processor;
 
 /**
  Set placeholder on view and retrieve the image from the given URL, process it using the passed in processor block and set result on view.
@@ -142,7 +153,7 @@
  @param processorKey NSString key to uniquely identify processor. Used in caching.
  @param processor PINRemoteImageManagerImageProcessor processor block which should return the processed image.
  */
-- (void)pin_setImageFromURL:(nullable NSURL *)url placeholderImage:(nullable PINImage *)placeholderImage processorKey:(nullable NSString *)processorKey processor:(nullable PINRemoteImageManagerImageProcessor)processor;
+- (void)pin_setImageFromURL:(nullable NSURL *)url options:(PINRemoteImageManagerDownloadOptions)options placeholderImage:(nullable PINImage *)placeholderImage processorKey:(nullable NSString *)processorKey processor:(nullable PINRemoteImageManagerImageProcessor)processor;
 
 /**
  Retrieve the image from the given URL, process it using the passed in processor block and set result on view. Call completion after image has been fetched, processed and set on view.
@@ -152,7 +163,7 @@
  @param processor PINRemoteImageManagerImageProcessor processor block which should return the processed image.
  @param completion Called when url has been retrieved and set on view.
  */
-- (void)pin_setImageFromURL:(nullable NSURL *)url processorKey:(nullable NSString *)processorKey processor:(nullable PINRemoteImageManagerImageProcessor)processor completion:(nullable PINRemoteImageManagerImageCompletion)completion;
+- (void)pin_setImageFromURL:(nullable NSURL *)url options:(PINRemoteImageManagerDownloadOptions)options processorKey:(nullable NSString *)processorKey processor:(nullable PINRemoteImageManagerImageProcessor)processor completion:(nullable PINRemoteImageManagerImageCompletion)completion;
 
 /**
  Set placeholder on view and retrieve the image from the given URL, process it using the passed in processor block and set result on view. Call completion after image has been fetched, processed and set on view.
@@ -163,14 +174,14 @@
  @param processor PINRemoteImageManagerImageProcessor processor block which should return the processed image.
  @param completion Called when url has been retrieved and set on view.
  */
-- (void)pin_setImageFromURL:(nullable NSURL *)url placeholderImage:(nullable PINImage *)placeholderImage processorKey:(nullable NSString *)processorKey processor:(nullable PINRemoteImageManagerImageProcessor)processor completion:(nullable PINRemoteImageManagerImageCompletion)completion;
+- (void)pin_setImageFromURL:(nullable NSURL *)url options:(PINRemoteImageManagerDownloadOptions)options placeholderImage:(nullable PINImage *)placeholderImage processorKey:(nullable NSString *)processorKey processor:(nullable PINRemoteImageManagerImageProcessor)processor completion:(nullable PINRemoteImageManagerImageCompletion)completion;
 
 /**
  Retrieve one of the images at the passed in URLs depending on previous network performance and set result on view.
  
  @param urls NSArray of NSURLs sorted in increasing quality
  */
-- (void)pin_setImageFromURLs:(nullable NSArray <NSURL *> *)urls;
+- (void)pin_setImageFromURLs:(nullable NSArray <NSURL *> *)urls options:(PINRemoteImageManagerDownloadOptions)options;
 
 /**
  Set placeholder on view and retrieve one of the images at the passed in URLs depending on previous network performance and set result on view.
@@ -178,7 +189,7 @@
  @param urls NSArray of NSURLs sorted in increasing quality
  @param placeholderImage PINImage to set on the view while the image at URL is being retrieved.
  */
-- (void)pin_setImageFromURLs:(nullable NSArray <NSURL *> *)urls placeholderImage:(nullable PINImage *)placeholderImage;
+- (void)pin_setImageFromURLs:(nullable NSArray <NSURL *> *)urls options:(PINRemoteImageManagerDownloadOptions)options placeholderImage:(nullable PINImage *)placeholderImage;
 
 /**
  Set placeholder on view and retrieve one of the images at the passed in URLs depending on previous network performance and set result on view. Call completion after image has been fetched and set on view.
@@ -187,7 +198,7 @@
  @param placeholderImage PINImage to set on the view while the image at URL is being retrieved.
  @param completion Called when url has been retrieved and set on view.
  */
-- (void)pin_setImageFromURLs:(nullable NSArray <NSURL *> *)urls placeholderImage:(nullable PINImage *)placeholderImage completion:(nullable PINRemoteImageManagerImageCompletion)completion;
+- (void)pin_setImageFromURLs:(nullable NSArray <NSURL *> *)urls options:(PINRemoteImageManagerDownloadOptions)options placeholderImage:(nullable PINImage *)placeholderImage completion:(nullable PINRemoteImageManagerImageCompletion)completion;
 
 /**
  Cancels the image download. Guarantees that previous setImage calls will *not* have their results set on the image view after calling this (as opposed to PINRemoteImageManager which does not guarantee cancellation).

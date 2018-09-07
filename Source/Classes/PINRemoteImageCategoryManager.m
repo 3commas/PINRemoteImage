@@ -14,31 +14,36 @@
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
                fromURL:(NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
 {
-    [self setImageOnView:view fromURL:url placeholderImage:nil];
+    [self setImageOnView:view fromURL:url options: options placeholderImage:nil];
 }
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
                fromURL:(NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(PINImage *)placeholderImage
 {
-    [self setImageOnView:view fromURL:url placeholderImage:placeholderImage completion:nil];
+    [self setImageOnView:view fromURL:url options: options placeholderImage:placeholderImage completion:nil];
 }
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
                fromURL:(NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
             completion:(PINRemoteImageManagerImageCompletion)completion
 {
-    [self setImageOnView:view fromURL:url placeholderImage:nil completion:completion];
+    [self setImageOnView:view fromURL:url options: options placeholderImage:nil completion:completion];
 }
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
                fromURL:(NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(PINImage *)placeholderImage
             completion:(PINRemoteImageManagerImageCompletion)completion
 {
     [self setImageOnView:view
                 fromURLs:url?@[url]:nil
+                 options: options
         placeholderImage:placeholderImage
             processorKey:nil
                processor:nil
@@ -47,11 +52,13 @@
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
                fromURL:(NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
           processorKey:(NSString *)processorKey
              processor:(PINRemoteImageManagerImageProcessor)processor
 {
     [self setImageOnView:view
                  fromURL:url
+                 options: options
             processorKey:processorKey
                processor:processor
               completion:nil];
@@ -59,12 +66,14 @@
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
                fromURL:(NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(PINImage *)placeholderImage
           processorKey:(NSString *)processorKey
              processor:(PINRemoteImageManagerImageProcessor)processor
 {
     [self setImageOnView:view
                 fromURLs:url?@[url]:nil
+                 options: options
         placeholderImage:placeholderImage
             processorKey:processorKey
                processor:processor
@@ -73,12 +82,14 @@
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
                fromURL:(NSURL *)url
+               options:(PINRemoteImageManagerDownloadOptions)options
           processorKey:(NSString *)processorKey
              processor:(PINRemoteImageManagerImageProcessor)processor
             completion:(PINRemoteImageManagerImageCompletion)completion
 {
     [self setImageOnView:view
                 fromURLs:url?@[url]:nil
+                 options: options
         placeholderImage:nil
             processorKey:processorKey
                processor:processor
@@ -87,29 +98,35 @@
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
               fromURLs:(NSArray <NSURL *> *)urls
+               options:(PINRemoteImageManagerDownloadOptions)options
 {
     [self setImageOnView:view
                 fromURLs:urls
+                 options: options
         placeholderImage:nil];
 }
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
               fromURLs:(NSArray <NSURL *> *)urls
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(PINImage *)placeholderImage
 {
     [self setImageOnView:view
                 fromURLs:urls
+                 options: options
         placeholderImage:placeholderImage
               completion:nil];
 }
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
               fromURLs:(NSArray <NSURL *> *)urls
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(PINImage *)placeholderImage
             completion:(PINRemoteImageManagerImageCompletion)completion
 {
     return [self setImageOnView:view
                        fromURLs:urls
+                        options:options
                placeholderImage:placeholderImage
                    processorKey:nil
                       processor:nil
@@ -146,6 +163,7 @@
 
 + (void)setImageOnView:(id <PINRemoteImageCategory>)view
               fromURLs:(NSArray <NSURL *> *)urls
+               options:(PINRemoteImageManagerDownloadOptions)options
       placeholderImage:(PINImage *)placeholderImage
           processorKey:(NSString *)processorKey
              processor:(PINRemoteImageManagerImageProcessor)processor
@@ -155,6 +173,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self setImageOnView:view
                         fromURLs:urls
+                         options:options
                 placeholderImage:placeholderImage
                     processorKey:processorKey
                        processor:processor
@@ -176,18 +195,13 @@
         return;
     }
     
-    PINRemoteImageManagerDownloadOptions options;
     if([view respondsToSelector:@selector(pin_defaultOptions)]) {
         options = [view pin_defaultOptions];
-    } else {
-        options = PINRemoteImageManagerDownloadOptionsNone;
     }
     
     if ([view pin_ignoreGIFs]) {
         options |= PINRemoteImageManagerDisallowAlternateRepresentations;
     }
-    
-    options = PINRemoteImageManagerDownloadOptionsSkipDecode | PINRemoteImageManagerSaveProcessedImageAsJPEG;
     
     PINRemoteImageManagerImageCompletion internalProgress = nil;
     if ([self updateWithProgressOnView:view] && processorKey.length <= 0 && processor == nil) {
