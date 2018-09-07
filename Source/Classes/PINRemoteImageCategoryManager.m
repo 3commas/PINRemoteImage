@@ -187,6 +187,8 @@
         options |= PINRemoteImageManagerDisallowAlternateRepresentations;
     }
     
+    options = PINRemoteImageManagerDownloadOptionsSkipDecode | PINRemoteImageManagerSaveProcessedImageAsJPEG;
+    
     PINRemoteImageManagerImageCompletion internalProgress = nil;
     if ([self updateWithProgressOnView:view] && processorKey.length <= 0 && processor == nil) {
         internalProgress = ^(PINRemoteImageManagerResult *result)
